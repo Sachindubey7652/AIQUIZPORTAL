@@ -1,7 +1,8 @@
 package com.aiquizportal.model;
 
 public class Question {
-    private int questionId;
+    private int questionId;  // maps to id in DB
+    private int quizId;
     private String questionText;
     private String optionA;
     private String optionB;
@@ -9,12 +10,23 @@ public class Question {
     private String optionD;
     private String correctAnswer;
 
-    // Default constructor
     public Question() {}
 
-    // Parameterized constructor
-    public Question(int questionId, String questionText, String optionA, String optionB, String optionC, String optionD, String correctAnswer) {
-        this.questionId = questionId;
+    public Question(int questionId, int quizId, String questionText,
+                    String optionA, String optionB,
+                    String optionC, String optionD,
+                    String correctAnswer) {
+        this.questionId   = questionId;
+        this.quizId       = quizId;
+        this.questionText = questionText;
+        this.optionA      = optionA;
+        this.optionB      = optionB;
+        this.optionC      = optionC;
+        this.optionD      = optionD;
+        this.correctAnswer= correctAnswer;
+    }
+    public Question(int quizId, String questionText, String optionA, String optionB, String optionC, String optionD, String correctAnswer) {
+        this.quizId = quizId;
         this.questionText = questionText;
         this.optionA = optionA;
         this.optionB = optionB;
@@ -23,13 +35,21 @@ public class Question {
         this.correctAnswer = correctAnswer;
     }
 
-    // Getters and Setters
+
     public int getQuestionId() {
         return questionId;
     }
 
     public void setQuestionId(int questionId) {
         this.questionId = questionId;
+    }
+
+    public int getQuizId() {
+        return quizId;
+    }
+
+    public void setQuizId(int quizId) {
+        this.quizId = quizId;
     }
 
     public String getQuestionText() {
@@ -83,13 +103,14 @@ public class Question {
     @Override
     public String toString() {
         return "Question{" +
-                "questionId=" + questionId +
-                ", questionText='" + questionText + '\'' +
-                ", optionA='" + optionA + '\'' +
-                ", optionB='" + optionB + '\'' +
-                ", optionC='" + optionC + '\'' +
-                ", optionD='" + optionD + '\'' +
-                ", correctAnswer='" + correctAnswer + '\'' +
-                '}';
+               "questionId=" + questionId +
+               ", quizId=" + quizId +
+               ", questionText='" + questionText + '\'' +
+               ", optionA='" + optionA + '\'' +
+               ", optionB='" + optionB + '\'' +
+               ", optionC='" + optionC + '\'' +
+               ", optionD='" + optionD + '\'' +
+               ", correctAnswer='" + correctAnswer + '\'' +
+               '}';
     }
 }

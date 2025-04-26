@@ -6,6 +6,8 @@
          version="4.0">
 
   <display-name>AI Quiz Portal</display-name>
+  
+  
 
   <!-- Login Servlet -->
   <servlet>
@@ -85,16 +87,46 @@
   <servlet-name>CreateQuizServlet</servlet-name>
   <url-pattern>/CreateQuizServlet</url-pattern>
 </servlet-mapping>
-<!-- AddQuestion Servlet -->
-<servlet>
+<!-- Add Question Servlet -->
+  <servlet>
     <servlet-name>AddQuestionServlet</servlet-name>
     <servlet-class>com.aiquizportal.controller.AddQuestionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddQuestionServlet</servlet-name>
+    <url-pattern>/admin/AddQuestionServlet</url-pattern>
+  </servlet-mapping>
+<!-- Delete Quiz Servlet -->
+<servlet>
+    <servlet-name>DeleteQuizServlet</servlet-name>
+    <servlet-class>com.aiquizportal.controller.DeleteQuizServlet</servlet-class>
 </servlet>
 
 <servlet-mapping>
-    <servlet-name>AddQuestionServlet</servlet-name>
-    <url-pattern>/AddQuestionServlet</url-pattern>
+    <servlet-name>DeleteQuizServlet</servlet-name>
+    <url-pattern>/DeleteQuizServlet</url-pattern>
 </servlet-mapping>
+
+<servlet>
+  <servlet-name>ForgotPasswordServlet</servlet-name>
+  <servlet-class>com.aiquizportal.controller.ForgotPasswordServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>ForgotPasswordServlet</servlet-name>
+  <url-pattern>/ForgotPasswordServlet</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>ResetPasswordServlet</servlet-name>
+  <servlet-class>com.aiquizportal.controller.ResetPasswordServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>ResetPasswordServlet</servlet-name>
+  <url-pattern>/ResetPasswordServlet</url-pattern>
+</servlet-mapping>
+    
+    
+   
 
 
 

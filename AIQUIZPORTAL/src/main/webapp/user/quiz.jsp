@@ -1,74 +1,82 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.aiquizportal.model.Question" %>
-<%@ page import="com.aiquizportal.model.User" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.*, com.aiquizportal.model.Question" %>
 <%
-    HttpSession sessionObj = request.getSession(false);
-    if (sessionObj == null || sessionObj.getAttribute("user") == null) {
-        response.sendRedirect("../login.jsp");
-        return;
-    }
-
-    User user = (User) sessionObj.getAttribute("user");
-    ArrayList<Question> questions = (ArrayList<Question>) request.getAttribute("questions");
-    String quizId = (String) request.getAttribute("quizId");
-
+    List<Question> questions = (List<Question>) request.getAttribute("questions");
     if (questions == null || questions.isEmpty()) {
-        out.println("<h3>No questions available for this quiz.</h3>");
-        return;
+%>
+    <h2>No questions found for this quiz.</h2>
+<%
+    return;
     }
 %>
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attempt Quiz</title>
+    <title>AI Quiz</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background: #f2f2f2;
             padding: 30px;
         }
+        .quiz-box {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
         .question {
-            margin-bottom: 30px;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .question h3 {
+            margin: 10px 0;
+        }
+        .options label {
+            display: block;
+            margin: 5px 0;
         }
         .submit-btn {
             padding: 10px 20px;
-            background: green;
+            background: #007BFF;
             color: white;
             border: none;
-            cursor: pointer;
+            border-radius: 5px;
             font-size: 16px;
-            border-radius: 6px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background: #0056b3;
         }
     </style>
 </head>
 <body>
 
-<h2>Quiz Time!</h2>
-
-<form method="post" action="SubmitQuizServlet">
-    <input type="hidden" name="quizId" value="<%= quizId %>"/>
-
-    <%
-        int qno = 1;
-        for (Question q : questions) {
-    %>
+<div class="quiz-box">
+    <h2>AI Quiz</h2>
+    <form method="post" action="SubmitQuizServlet">
+        <%
+            int qNo = 1;
+            for (Question q : questions) {
+        %>
         <div class="question">
-            <p><strong>Q<%= qno++ %>:</strong> <%= q.getQuestionText() %></p>
-            <label><input type="radio" name="q<%= q.getQuestionId() %>" value="A" required> <%= q.getOptionA() %></label><br>
-            <label><input type="radio" name="q<%= q.getQuestionId() %>" value="B"> <%= q.getOptionB() %></label><br>
-            <label><input type="radio" name="q<%= q.getQuestionId() %>" value="C"> <%= q.getOptionC() %></label><br>
-            <label><input type="radio" name="q<%= q.getQuestionId() %>" value="D"> <%= q.getOptionD() %></label><br>
+            <h3>Q<%= qNo++ %>: <%= q.getQuestionText() %></h3>
+            <div class="options">
+                <label><input type="radio" name="q<%= q.getQuestionId() %>" value="A" required> <%= q.getOptionA() %></label>
+                <label><input type="radio" name="q<%= q.getQuestionId() %>" value="B"> <%= q.getOptionB() %></label>
+                <label><input type="radio" name="q<%= q.getQuestionId() %>" value="C"> <%= q.getOptionC() %></label>
+                <label><input type="radio" name="q<%= q.getQuestionId() %>" value="D"> <%= q.getOptionD() %></label>
+            </div>
         </div>
-    <% } %>
+        <% } %>
 
-    <button type="submit" class="submit-btn">Submit Quiz</button>
-</form>
+        <!-- You can pass the quizId as hidden if needed in your SubmitQuizServlet -->
+        <input type="hidden" name="quizId" value="<%= questions.get(0).getQuizId() %>">
+
+        <button type="submit" class="submit-btn">Submit Quiz</button>
+    </form>
+</div>
 
 </body>
 </html>

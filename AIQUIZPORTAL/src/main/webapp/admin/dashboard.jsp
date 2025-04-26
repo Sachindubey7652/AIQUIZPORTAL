@@ -186,8 +186,13 @@
             <td><%= rs.getTimestamp("created_at") %></td>
             <td class="actions">
                 <a href="editquiz.jsp?quizId=<%= rs.getInt("id") %>" class="btn">Edit</a>
-                <a href="deletequiz.jsp?quizId=<%= rs.getInt("id") %>" class="btn btn-danger"
-                   onclick="return confirm('Are you sure you want to delete this quiz?');">Delete</a>
+              <a href="<%= request.getContextPath() %>/DeleteQuizServlet?quizId=<%= rs.getInt("id") %>"
+   class="btn btn-danger"
+   onclick="return confirm('Are you sure you want to delete this quiz?');">
+   Delete
+</a>
+
+
                 <!-- Link to Add Questions Page -->
          <a href="addquestion.jsp?quizId=<%= rs.getInt("id") %>" class="btn">Add Question</a>
 

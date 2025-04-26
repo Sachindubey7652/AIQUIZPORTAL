@@ -8,6 +8,7 @@ public class User {
     private String password;
     private String role;
     private String username; // Add this new field for username
+    private String resetToken;
 
     // Existing getters and setters
     public int getId() {
@@ -48,5 +49,7 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
+    public String getResetToken() { return resetToken; }
+    public void setResetToken(String t) { this.resetToken = t; }
 
 }
